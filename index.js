@@ -1,1 +1,1 @@
-module.exports = require('./js/1.4.3/ngDialog');
+module.exports = require('./js/ngDialog/ngDialog');
