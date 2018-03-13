@@ -710,13 +710,13 @@
 
                             if (options.isDragAble) {
                                 $timeout(function() {
-                                    $dialog.find(`.${options.dragTarget}`).off('mousedown mouseup').on({
+                                    $dialog.find('.' + options.dragTarget).off('mousedown mouseup').on({
                                         mousedown: function(e) {
-                                            const el = $dialog.find('.ngdialog-content');
-                                            const os = el.offset(),
+                                            var el = $dialog.find('.ngdialog-content');
+                                            var os = el.offset(),
                                                 dx = e.pageX - os.left,
                                                 dy = e.pageY - os.top;
-                                            const clientY = $(window).height();
+                                            var clientY = $(window).height();
                                             $(document).on('mousemove.drag', function(e) {
                                                 if (e.pageY > 10 && e.pageY < clientY - 10) {
                                                     el.offset({ top: e.pageY - dy, left: e.pageX - dx });
