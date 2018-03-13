@@ -1,0 +1,1 @@
+module.exports = require('./js/1.4.2/ngDialog');
