@@ -731,6 +731,23 @@
                                 }, 0);
                             }
 
+                            $timeout(function() {
+                                var middleDialog = function() {
+                                    if ($dialog.hasClass('vertical-middle') && $dialog.find('.ngdialog-content').length) {
+                                        var $ngdialogContent = $dialog.find('.ngdialog-content');
+                                        var clientHeight = $(window).height();
+                                        var ngdialogContentHeight = $ngdialogContent.height();
+                                        $dialog.css('padding-top', (clientHeight - ngdialogContentHeight) / 2);
+                                    }
+                                };
+
+                                middleDialog();
+
+                                $(window).off('resize').on('resize', function() {
+                                    middleDialog();
+                                });
+                            }, 0);
+
                             closeByDocumentHandler = function(event) {
                                 var isOverlay = options.closeByDocument ? $el(event.target).hasClass('ngdialog-overlay') : false;
                                 var isCloseBtn = $el(event.target).hasClass('ngdialog-close');
