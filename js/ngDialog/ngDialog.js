@@ -710,23 +710,30 @@
 
                             if (options.isDragAble) {
                                 $timeout(function() {
-                                    $dialog.find('.' + options.dragTarget).off('mousedown mouseup').on({
+                                    $dialog.find('.' + options.dragTarget).off('mousedown').on({
                                         mousedown: function(e) {
                                             var el = $dialog.find('.ngdialog-content');
                                             var os = el.offset(),
                                                 dx = e.pageX - os.left,
                                                 dy = e.pageY - os.top;
-                                            var clientY = $(window).height();
-                                            $(document).on('mousemove.drag', function(e) {
-                                                if (e.pageY > 10 && e.pageY < clientY - 10) {
-                                                    el.offset({ top: e.pageY - dy, left: e.pageX - dx });
-                                                } else {
+                                            var clientH = $(window).height();
+                                            var clientW = $(window).width();
+                                            $dialog.css({ overflow: 'hidden' });
+                                            $(document).on({
+                                                'mousemove.drag': function(e) {
+                                                    var pageX = e.pageX,
+                                                        pageY = e.pageY;
+                                                    if (pageX > 0 && pageX < clientW && pageY > 0 && pageY < clientH) {
+                                                        el.offset({ top: e.pageY - dy, left: e.pageX - dx });
+                                                    }
+                                                    return false;
+                                                },
+                                                mouseup: function(e) {
                                                     $(document).off('mousemove.drag');
+                                                    $dialog.css({ overflow: '' });
                                                 }
-                                                return false;
                                             });
-                                        },
-                                        mouseup: function(e) { $(document).off('mousemove.drag'); }
+                                        }
                                     }).addClass('move');
                                 }, 0);
                             }
