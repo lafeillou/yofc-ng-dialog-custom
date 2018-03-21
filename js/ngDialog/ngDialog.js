@@ -733,6 +733,7 @@
                                                     $dialog.css({ overflow: '' });
                                                 }
                                             });
+                                            return false;
                                         }
                                     }).addClass('move');
                                 }, 0);
